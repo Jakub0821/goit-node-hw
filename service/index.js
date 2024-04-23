@@ -1,3 +1,4 @@
+import addUser from 'service/index.js';
 const Contact = require("./schemas/contacts");
 
 const listContacts = async () => {
