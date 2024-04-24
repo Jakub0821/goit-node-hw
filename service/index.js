@@ -23,6 +23,9 @@ const updateContact = async (contactId, body) => {
 const updateStatusContact = async (contactId, body) => {
   return Contact.findByIdAndUpdate({ _id: contactId }, body, { new: true });
 };
+const addUser = async (user) => {
+  return Users.create(user);
+};
 
 module.exports = {
   listContacts,
