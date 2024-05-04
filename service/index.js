@@ -1,5 +1,5 @@
 const Contact = require("./schemas/contacts");
-
+const Users = require("./schemas/users");
 
 const listContacts = async () => {
   return Contact.find();
