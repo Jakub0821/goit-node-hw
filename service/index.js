@@ -1,5 +1,3 @@
-import { subscribe } from "../app";
-
 const Contact = require("./schemas/contacts");
 
 const listContacts = async () => {
