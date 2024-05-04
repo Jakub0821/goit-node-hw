@@ -1,25 +1,33 @@
-import { subscribe } from "../app";
+const fs = require("fs");
+const path = require("path")
 
 const Contact = require("./schemas/contacts");
+const Users = require("./schemas/users");
 
-const listContacts = async () => {
-  return Contact.find();
+const listContacts = async (userId) => {
+  return Contact.find({ owener: userId });
 };
 
-const getContactById = async (contactId) => {
-  return Contact.findOne({ _id: contactId });
+const getContactById = async (userId, contactId) => {
+  return Contact.findOne({ owener: userId, _id: contactId });
 };
 
-const addContact = async (contact) => {
-  return Contact.create(contact);
+const addContact = async (userId, contact) => {
+  return Contact.create({ ...contact, owner: userId});
 };
 
-const removeContact = async (contactId) => {
-  return Contact.findOneAndDelete({ _id: contactId });
+const removeContact = async (userId, contactId) => {
+  // return Contact.findOneAndDelete({owner: userId, _id: contactId });
+  return await Contact.findOneAndDelete({
+    owner: userId,
+    _id: contactId,
+  }).select({ _id: 1 });
 };
 
 const updateContact = async (contactId, body) => {
-  return Contact.findByIdAndUpdate({ _id: contactId }, body, { new: true });
+  return Contact.findByIdAndUpdate({ owner: userId, _id: contactId }, body, { 
+    new: true 
+  });
 };
 
 const updateStatusContact = async (contactId, body) => {
@@ -27,6 +35,19 @@ const updateStatusContact = async (contactId, body) => {
 };
 const addUser = async (user) => {
   return Users.create(user);
+};
+
+const updateAvatarUrl = async (userId, avatarUrl) => {
+  return Users.findByIdAndUpdate({ _id: userId }, { avatarUrl }, { new: true });
+};
+
+const deleteTempAvatarFile = (filename) => {
+  const filePath = path.join(process.cwd(), "temp", filename);
+  try {
+    fs.unlinkSync(filePath);
+  } catch (error) {
+    console.error(`An error occured during deleting file: ${error}`);
+  }
 };
 
 module.exports = {
@@ -37,5 +58,7 @@ module.exports = {
   updateContact,
   updateStatusContact,
   addUser,
+  updateAvatarUrl,
+  deleteTempAvatarFile,
 };
 
