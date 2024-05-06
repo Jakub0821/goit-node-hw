@@ -17,7 +17,7 @@ app.use(express.static("public"));
 
 const IMAGE_DIR = path.join(process.cwd(), "public", "avatars");
 
-app.use("./publice/avatars", express.static(IMAGE_DIR));
+app.use("./public/avatars", express.static(IMAGE_DIR));
 
 app.use("/api/contacts", contactsRouter);
 app.use("/api/users", usersRouter); 
