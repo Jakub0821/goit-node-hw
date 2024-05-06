@@ -1,9 +1,9 @@
 require("dotenv").config();
 const bcrypt = require("bcrypt");
 const express = require("express");
-const fs = require("fs");
+const fs = require("fs-extra");
 const gravatar = require("gravatar");
-const jimp = require("jimp");
+var jimp = require("jimp");
 const jwt = require("jsonwebtoken");
 const multer = require("multer");
 const path = require("path");
