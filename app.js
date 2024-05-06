@@ -15,7 +15,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.static("public"));
 
-export const IMAGE_DIR = path.join(process.cwd(), "public", "avatars");
+const IMAGE_DIR = path.join(process.cwd(), "public", "avatars");
 
 app.use("./publice/avatars", express.static(IMAGE_DIR));
 
